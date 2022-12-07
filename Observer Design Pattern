@@ -1,0 +1,80 @@
+#include <iostream>
+#include<list>
+using namespace std;
+
+class Iuser{
+    public:
+       virtual void notify(string msg)=0;
+       
+};
+//now we have to make the class of our users inshort we have to impliment our users
+class User :public Iuser{
+    private:
+     int user_id;
+     
+     public:
+     User(int user_id)
+     {
+         this->user_id=user_id;
+     }
+     void notify(string msg)
+     {
+         cout<<" user "<<user_id<<" received msg "<<msg<<endl;
+     }
+};
+//now we hvae to impliment our group
+//and group will basically having the list of the users
+class Group{
+    
+    private:
+     list<Iuser*>users;
+     public:
+     
+     void add(Iuser*user)
+     {
+         users.push_back(user);
+     }
+     void unsubscribe(Iuser*user)
+     {
+         users.remove(user);
+     }
+     void notify(string msg)
+     {
+         //we have to go through the entire list of the users
+         for(auto itr:users)
+         {
+             itr->notify(msg);
+         }
+     }
+};
+int main() {
+	
+	//This is our client perspective
+	//we have to make a group that will contain my users
+	Group* group=new Group;
+	
+	//we make our users
+	User*user1=new User(1);
+	User*user2=new User(2);
+	User*user3=new User(3);
+	
+	//we hvae to add this user to our Group
+	group->add(user1);
+	group->add(user2);
+	group->add(user3);
+	
+	//now we have to update all the users present in the group
+	group->notify("new msg");
+	
+	
+	//we can also remove users from the group
+	
+	group->unsubscribe(user1);
+	
+	//again we will update our users present in the group
+	//this time user 1 will not get updated since we have remove user1 from group
+	group->notify("Hello");
+	
+	
+	return 0;
+}
