@@ -1,0 +1,59 @@
+#include<bist/stdc++.h>
+
+using namespace std:
+
+class BasePizza{
+
+    public:
+
+     int cost();
+};
+class farmhouse:public BasePizza{
+
+    public:
+
+    int cost()
+    {
+        return 120;
+    }
+};
+class vegdelite:public BasePizza{
+
+    public:
+
+    int cost()
+    {
+        return 180;
+    }
+};
+class toppins:public BasePizza{
+
+    
+
+};
+
+class extracheeze:public toppins{
+
+    public:
+      
+      BasePizza basepizza;
+
+      extracheeze(BasePizza pizza)
+      {
+        this->basepizza=pizza;
+      }
+
+      int cost()
+      {
+        return this->basepizza->cost()+10;
+      }
+};
+
+
+int main()
+{
+    
+    
+
+    return 0;
+}
